@@ -105,7 +105,7 @@ void UndoRedoEventSystem::ExecuteCommand(const char* commandName)
 
 	exeCommand->Execute();
 	undo.Push(exeCommand);
-	redo.Clear();
+	RedoClear();
 }
 
 void UndoRedoEventSystem::Undo()
@@ -132,4 +132,15 @@ void UndoRedoEventSystem::Redo()
 	ICommand* redoCommand = redo.Pop();
 	redoCommand->Redo();
 	undo.Push(redoCommand);
+}
+
+void UndoRedoEventSystem::RedoClear()
+{
+	ICommand* command;
+	while (!redo.IsEmpty())
+	{
+		command = redo.Pop();
+		delete command;
+		command = nullptr;
+	}
 }

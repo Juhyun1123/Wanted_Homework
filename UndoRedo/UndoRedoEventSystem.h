@@ -19,6 +19,8 @@ private:
 	void Undo();
 	void Redo();
 
+	void RedoClear();
+
 private:
 	CommandFactory factory;
 
